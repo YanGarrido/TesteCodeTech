@@ -41,8 +41,8 @@ const StudentList: React.FC = () => {
           <h2 className="w-[88px] h-[36px] mt-[34px] ml-[96px] font-poppins font-extrabold text-[24px] ">
             Alunos
           </h2>
-          <Link to="/create">
-            <button className="bg-[#D64B14] w-[174px] h-[50px] mt-[28px] mr-[64px] rounded-[8px] font-poppins font-extrabold text-[14px] text-white">
+          <Link to="/students/form">
+            <button className="bg-[#D64B14] w-[174px] h-[50px] mt-[28px] mr-[64px] rounded-[8px] font-poppins font-extrabold text-[14px] text-white hover:bg-[#A63A0F] transition duration-300">
               Criar Registro
             </button>
           </Link>

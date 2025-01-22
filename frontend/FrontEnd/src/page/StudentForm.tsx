@@ -47,8 +47,8 @@ const StudentForm: React.FC = () => {
         <div className="h-[70px] border-b-2 border-[#EEEEEE]"></div>
         <div className="flex justify-between font-poppins font-extrabold mt-[27px] mx-[64px] mb-[32px]">
           <h2 className="text-black text-[24px] mt-[6px]">Alunos</h2>
-          <Link to="/">
-            <button className="rounded-[8px] bg-[#D64B14] text-white text-[14px] px-[64px] py-[15px]">
+          <Link to="/students">
+            <button className="rounded-[8px] bg-[#D64B14] text-white text-[14px] px-[64px] py-[15px] hover:bg-[#A63A0F] transition duration-300">
               Voltar
             </button>
           </Link>
@@ -93,7 +93,7 @@ const StudentForm: React.FC = () => {
 
             <button
               type="submit"
-              className="rounded-[8px] bg-[#D64B14] px-[64px] py-[15px] text-white text-[14px] font-poppins font-extrabold mt-[39px]"
+              className="rounded-[8px] bg-[#D64B14] px-[64px] py-[15px] text-white text-[14px] font-poppins font-extrabold mt-[39px] hover:bg-[#A63A0F] transition duration-300"
             >
               salvar
             </button>
