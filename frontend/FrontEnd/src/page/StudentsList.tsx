@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import api from "../services/Api";
 import { TrashIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { getToken } from "../services/authServices";
 
 interface Student {
   _id: string;
@@ -12,17 +13,38 @@ interface Student {
 
 const StudentList: React.FC = () => {
   const [students, setStudent] = useState<Student[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    api
-      .get("/api/students")
-      .then((response) => setStudent(response.data))
-      .catch((error) => console.log("Erro ao Buscar alunos", error));
-  }, []);
+    const token = getToken();
+
+    if (!token) {
+      navigate("/");
+    } else {
+      api
+        .get("/api/students", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => setStudent(response.data))
+        .catch((error) => {
+          console.log("Erro ao Buscar alunos", error);
+
+          if (
+            error.response?.status === 401 ||
+            error.response?.status === 403
+          ) {
+            navigate("/login");
+          }
+        });
+    }
+  }, [navigate]);
 
   const handleDelete = async (id: string) => {
+    const token = getToken();
     try {
-      await api.delete(`/api/students/${id}`);
+      await api.delete(`/api/students/${id}`,{
+        headers: {Authorization: `Bearer ${token}`},
+      });
       setStudent(students.filter((student) => student._id !== id));
     } catch (error) {
       console.log("Erro ao deletar", error);

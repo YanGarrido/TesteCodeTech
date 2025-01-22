@@ -1,21 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import api from "../services/Api";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { getToken } from "../services/authServices";
 
 const StudentForm: React.FC = () => {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [turma, setTurma] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = getToken;
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      await api.post("/api/students", {
-        name,
-        age: Number(age),
-        turma,
-      });
+      const token = getToken();
+      if (!token) {
+        navigate("/");
+        return;
+      }
+
+      await api.post(
+        "/api/students",
+        {
+          name,
+          age: Number(age),
+          turma,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       alert("Aluno cadastrado com sucesso!");
       setName("");
       setAge("");
