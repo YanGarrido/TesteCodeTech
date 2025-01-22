@@ -8,21 +8,24 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     try {
-      const response = await api.post("/auth/login", {
-        email,
-        password,
-      });
-      const data = await response.data;
+      const response = await api.post("/auth/login", { email, password });
+      const data =  response.data;
       alert("Login bem-sucedido!");
       console.log("Token:", data.token);
-      navigate("/students");
+      
+      localStorage.setItem("token", data.token);
+      // Navegar para "/students" após um pequeno atraso
+      setTimeout(() => {
+        navigate("/students");
+      }, 100); // Atraso de 100ms
     } catch (error) {
       alert("Credenciais inválidas.");
       console.log(error);
     }
   };
+  
   return (
     <div className="grid grid-cols-[1fr_1fr]">
       <div className="bg-[#D64B14]"></div>
