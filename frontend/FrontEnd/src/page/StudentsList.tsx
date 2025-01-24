@@ -42,8 +42,8 @@ const StudentList: React.FC = () => {
   const handleDelete = async (id: string) => {
     const token = getToken();
     try {
-      await api.delete(`/api/students/${id}`,{
-        headers: {Authorization: `Bearer ${token}`},
+      await api.delete(`/api/students/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
       setStudent(students.filter((student) => student._id !== id));
     } catch (error) {
@@ -53,41 +53,62 @@ const StudentList: React.FC = () => {
 
   return (
     <div>
-      <header className="bg-[#D64B14] w-screen h-[4.313rem] relative">
-        <h1 className="text-white absolute top-[10px] left-[50px] w-[212px] h-[34px] font-poppins text-[36px] font-extrabold leading-[54px] text-left underline-custom">
+      {/* Header */}
+      <header className="bg-[#D64B14] w-full h-[4.313rem] flex items-center px-4 md:px-12">
+        <h1 className="text-white font-poppins text-[24px] md:text-[36px] font-extrabold underline-custom">
           CODETECH
         </h1>
       </header>
-      <main>
-        <div className=" flex justify-between">
-          <h2 className="w-[88px] h-[36px] mt-[34px] ml-[96px] font-poppins font-extrabold text-[24px] ">
+
+      {/* Main Content */}
+      <main className="px-4 md:px-12">
+        {/* Title and Button */}
+        <div className="flex flex-wrap items-center justify-between mt-4">
+          <h2 className="font-poppins font-extrabold text-[18px] md:text-[24px]">
             Alunos
           </h2>
           <Link to="/students/form">
-            <button className="bg-[#D64B14] w-[174px] h-[50px] mt-[28px] mr-[64px] rounded-[8px] font-poppins font-extrabold text-[14px] text-white hover:bg-[#A63A0F] transition duration-300">
+            <button className="bg-[#D64B14] rounded-[8px] font-poppins font-extrabold text-[14px] text-white py-2 px-4 md:py-[14px] md:px-[20px] hover:bg-[#A63A0F] transition duration-300">
               Criar Registro
             </button>
           </Link>
         </div>
-        <div className="flex justify-center">
-          <table className="w-[90%] max-w-[1310px] mt-[38px] border-collapse">
-            <thead className=" border-b-2 rouded-[8px] border-[#EEEEEE]">
+
+        {/* Table */}
+        <div className="flex justify-center overflow-x-auto mt-6">
+          <table className="w-full max-w-[1310px] border-collapse">
+            {/* Table Head */}
+            <thead className="border-b-2 border-[#EEEEEE]">
               <tr className="bg-[#EEEEEE] text-black text-center font-poppins">
-                <th className="p-2 font-light text-[14px]">nome</th>
-                <th className="p-2 font-light text-[14px]">idade</th>
-                <th className="p-2 font-light text-[14px]">turma</th>
-                <th className="p-2 font-light text-[14px]">deletar</th>
+                <th className="p-2 font-light text-[12px] md:text-[14px]">
+                  Nome
+                </th>
+                <th className="p-2 font-light text-[12px] md:text-[14px]">
+                  Idade
+                </th>
+                <th className="p-2 font-light text-[12px] md:text-[14px]">
+                  Turma
+                </th>
+                <th className="p-2 font-light text-[12px] md:text-[14px]">
+                  Deletar
+                </th>
               </tr>
             </thead>
+
+            {/* Table Body */}
             <tbody className="text-center font-poppins font-light">
               {students.map((student) => (
-                <tr key={student._id} className=" border-b-[1px]">
-                  <td className="p-2 font-light text-[14px]">{student.name}</td>
-                  <td className="p-2 font-light text-[14px]">{student.age}</td>
-                  <td className="p-2 font-light text-[14px]">
+                <tr key={student._id} className="border-b">
+                  <td className="p-2 text-[12px] md:text-[14px]">
+                    {student.name}
+                  </td>
+                  <td className="p-2 text-[12px] md:text-[14px]">
+                    {student.age}
+                  </td>
+                  <td className="p-2 text-[12px] md:text-[14px]">
                     {student.turma}
                   </td>
-                  <td className="p-2 font-light text-[14px]">
+                  <td className="p-2 text-[12px] md:text-[14px]">
                     <button onClick={() => handleDelete(student._id)}>
                       <TrashIcon />
                     </button>
