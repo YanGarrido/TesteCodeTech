@@ -16,10 +16,10 @@ const Login: React.FC = () => {
       console.log("Token:", data.token);
       
       localStorage.setItem("token", data.token);
-      // Navegar para "/students" após um pequeno atraso
+      
       setTimeout(() => {
         navigate("/students");
-      }, 100); // Atraso de 100ms
+      }, 100); 
     } catch (error) {
       alert("Credenciais inválidas.");
       console.log(error);
